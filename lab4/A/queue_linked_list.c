@@ -1,32 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Node 
+struct Node
 {
     int data;
     struct Node *next;
 };
-
 struct Node *front = NULL;
 struct Node *rear = NULL;
-
-void enqueue(int value) 
+void enqueue(int value)
 {
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
     newNode->data = value;
     newNode->next = NULL;
-    if (rear == NULL) {
+    if (rear == NULL)
+    {
         front = rear = newNode;
-    } else {
+    }
+    else
+    {
         rear->next = newNode;
         rear = newNode;
     }
     printf("%d inserted into queue\n", value);
 }
-
-void dequeue() 
+void dequeue()
 {
-    if (front == NULL) {
+    if (front == NULL)
+    {
         printf("Queue is empty\n");
         return;
     }
@@ -37,34 +37,31 @@ void dequeue()
         rear = NULL;
     free(temp);
 }
-
-void display() 
+void display()
 {
-    if (front == NULL) {
+    if (front == NULL)
+    {
         printf("Queue is empty\n");
         return;
     }
     struct Node *temp = front;
     printf("Queue: ");
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
         printf("%d ", temp->data);
         temp = temp->next;
     }
     printf("\n");
 }
-
-int main() {
+int main()
+{
     enqueue(10);
     enqueue(20);
     enqueue(30);
-
     display();
-
     dequeue();
     display();
-
     enqueue(40);
     display();
-
     return 0;
 }
