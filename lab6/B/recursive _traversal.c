@@ -60,8 +60,6 @@ int main() {
     printf("\n"); 
     printf("Post-order traversal: "); 
     postOrder(root); 
-
     printf("\n"); 
-
     return 0; 
 } 
