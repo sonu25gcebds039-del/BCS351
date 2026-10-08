@@ -29,7 +29,7 @@ void printArray(int arr[], int size) {
 } 
  
 int main() { 
-    int arr[] = {29, 10, 14, 37, 13}; 
+    int arr[] = {48, 19, 5, 12, 28}; 
     int n = sizeof(arr) / sizeof(arr[0]); 
  
     printf("Original array:\n"); 

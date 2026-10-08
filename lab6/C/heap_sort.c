@@ -1,61 +1,65 @@
-#include<stdio.h> 
-void heapsort(int[],int); 
-void heapify(int[],int); 
-void adjust(int[],int);  
-main() { 
-    int n,i,a[50]; 
-    system("clear"); 
-    printf("\nEnter the limit:"); 
-    scanf("%d",&n); 
-    printf("\nEnter the elements:"); 
-    for (i=0;i<n;i++) 
-    scanf("%d",&a[i]); 
-    heapsort(a,n); 
-    printf("\nThe Sorted Elements Are:\n"); 
-    for (i=0;i<n;i++) 
-        printf("\t%d",a[i]); 
-    printf("\n"); 
-    } 
-void heapsort(int a[],int n) { 
-    int i,t; 
-    heapify(a,n); 
-    for (i=n-1;i>0;i--) { 
-        t = a[0]; 
-        a[0] = a[i]; 
-    a[i] = t; 
-    adjust(a,i); 
+#include <stdio.h>
 
-    } 
-} 
-void heapify(int a[],int n) { 
-    int k,i,j,item; 
-    for (k=1;k<n;k++) { 
-        item = a[k]; 
-        i = k; 
-        j = (i-1)/2; 
-        while((i>0)&&(item>a[j])) { 
-            a[i] = a[j]; 
-            i = j; 
-            j = (i-1)/2; 
-        } 
-        a[i] = item; 
-    } 
-} 
-void adjust(int a[],int n) { 
-    int i,j,item; 
-    j = 0; 
-    item = a[j]; 
-    i = 2*j+1; 
-    while(i<=n-1) { 
-        if(i+1 <= n-1) 
-        if(a[i] <a[i+1]) 
-        i++; 
-        if(item<a[i]) { 
-            a[j] = a[i]; 
-            j = i; 
-            i = 2*j+1; 
-        } 
-        else 
-        break;  
-    } 
-} 
+// Function to heapify a subtree
+void heapify(int arr[], int n, int i) {
+    int largest = i;          // Assume root is largest
+    int left = 2 * i + 1;     // Left child
+    int right = 2 * i + 2;    // Right child
+
+    // If left child is larger than root
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    // If right child is larger than largest
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    // If largest is not root, swap and heapify again
+    if (largest != i) {
+        int temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = temp;
+
+        heapify(arr, n, largest);
+    }
+}
+
+// Heap Sort function
+void heapSort(int arr[], int n) {
+    // Build max heap
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    // Extract elements one by one
+    for (int i = n - 1; i > 0; i--) {
+        // Move current root to the end
+        int temp = arr[0];
+        arr[0] = arr[i];
+        arr[i] = temp;
+
+        // Heapify reduced heap
+        heapify(arr, i, 0);
+    }
+}
+
+// Print array
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    printArray(arr, n);
+
+    heapSort(arr, n);
+
+    printf("Sorted array: ");
+    printArray(arr, n);
+
+    return 0;
+}
